@@ -1,4 +1,4 @@
 arm-assembler-latex-listings
 ============================
 
-The [ARM] Assembler language definition for the latex listings package
+The [ARM] Assembler language definition with NEON for the latex listings package
