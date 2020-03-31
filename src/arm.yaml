@@ -12,6 +12,7 @@ instructions:
   - QDSUB{cond}
   - MUL{cond}{S}
   - MLA{cond}{S}
+  - MLS{cond}
   - UMULL{cond}{S}
   - UMLAL{cond}{S}
   - UMAAL{cond}
@@ -45,6 +46,7 @@ instructions:
   - USADA8{cond}
   - MOV{cond}{S}
   - MVN{cond}{S}
+  - MOVT{cond}
   - MRS{cond}
   - MSR{cond}
   - MRA{cond}
@@ -56,6 +58,7 @@ instructions:
   - EOR{cond}{S}
   - ORR{cond}{S}
   - BIC{cond}{S}
+  - ORN{cond}{S}
   - CMP{cond}
   - CMN{cond}
   - SSAT{cond}
@@ -79,6 +82,7 @@ instructions:
   - REV{cond}
   - REV16{cond}
   - REVSH{cond}
+  - RBIT{cond}
   - SEL{cond}
   - B{cond}
   - BL{cond}
@@ -86,6 +90,7 @@ instructions:
   - BLX
   - BLX{cond}
   - BXJ{cond}
+  - CB{N}Z
   - CPSID
   - CPSIE
   - CPS
@@ -133,6 +138,134 @@ instructions:
   - STC2
   - PUSH{cond}
   - POP{cond}
+  - ADR{cond}
+  - ASR{cond}
+  - LSL{cond}
+  - LSR{cond}
+  - ROR{cond}
+  - RRX{cond}
+  - SDIV{cond}
+  - UDIV{cond}
+  - BFC{cond}
+  - BFI{cond}
+  - SBFX{cond}
+  - UBFX{cond}
+  - IT
+  - IT{ET}
+  - IT{ET}{ET}
+  - IT{ET}{ET}{ET}
+  - DMB
+  - DSB
+  - ISB
+  - SEV{cond}
+  - WFE{cond}
+  - SVC{cond}
+  - WFI{cond}
+  - VLDR{cond}{size}
+  - VSTR{cond}{size}
+  - VLDM<a_mode_neon>{cond}
+  - VSTM<a_mode_neon>{cond}
+  - VPOP{cond}
+  - VPUSH{cond}
+  - VMOV{cond}
+  - VMOV{cond}{size}
+  - VMOV{cond}{datatype}
+  - VMRS{cond}
+  - VMSR{cond}
+  - VAND{datatype}
+  - VBIC{datatype}
+  - VEOR{datatype}
+  - VORN{datatype}
+  - VORR{datatype}
+  - VBIT{datatype}
+  - VBIF{datatype}
+  - VBSL{datatype}
+  - VMVN{datatype}
+  - VACGE.F32
+  - VACGT.F32
+  - VCEQ<datatype>
+  - VCGE<datatype>
+  - VCGT<datatype>
+  - VCLE<datatype>
+  - VCLT<datatype>
+  - VTST<size>
+  - VCVT<type_neon>
+  - VDUP<size>
+  - "VEXT.8"
+  - VMOVL<datatype>
+  - VMOVN<datatype>
+  - VQMOVN<datatype>
+  - VQMOVUN<datatype>
+  - VREV<n_neon><size>
+  - VSWP{datatype}
+  - "VTBL.8"
+  - "VTBX.8"
+  - VTRN<size>
+  - VZIP<size>
+  - VUZP<size>
+  - V{Q}SHL{U}<datatype>
+  - VSHLL<datatype>
+  - V{R}SHR{N}<datatype>
+  - V{R}SRA<datatype>
+  - VQ{R}SHR{U}N<datatype>
+  - VSLI<size>
+  - VSRI<size>
+  - VABA{L}<datatype>
+  - VABD<datatype>
+  - VABD{L}<datatype>
+  - V{Q}ABS<datatype>
+  - VNEG<datatype>
+  - V{Q}NEG<datatype>
+  - V{Q}ADD{LW}<datatype>
+  - V{Q}SUB{LW}<datatype>
+  - V{R}ADDHN<datatype>
+  - V{R}SUBHN<datatype>
+  - V{R}HADD<datatype>
+  - VHSUB<datatype>
+  - VPADD{L}<datatype>
+  - VPADA{L}<datatype>
+  - V{P}MAX<datatype>
+  - V{P}MIN<datatype>
+  - VCLS<datatype>
+  - VCLZ<datatype>
+  - VCNT<datatype>
+  - VRECPE<datatype>
+  - VRSQRTE<datatype>
+  - "VRECPS.F32"
+  - "VRSQRTS.F32"
+  - VMUL{L}<datatype>
+  - VMLA{L}<datatype>
+  - VMLS{L}<datatype>
+  - VFMA<F1632>
+  - VFMS<F1632>
+  - VQDMULL<datatype>
+  - VQDMLAL<datatype>
+  - VQDMLSL<datatype>
+  - VQ{R}DMULH<datatype>
+  - VLD<vldn><vldn_n>
+  - VST<vldn><vldn_n>
+  - VLDR<datatype>
+  - VLDR{size}
+  - VSTR{size}
+  - VMOV2<datatype>
+  - VAND<datatype>
+  - VORN<datatype>
+  - V{A}CLE<datatype>
+  - V{A}CLT<datatype>
+vldn:
+  - "1"
+  - "2"
+  - "3"
+  - "4"
+vldn_n:
+  - ".8"
+  - ".16"
+  - ".32"
+  - ".64"
+n_neon:
+  - "16"
+  - "32"
+  - "64"
 directives:
   - ".2byte"
   - ".4byte"
@@ -311,6 +444,27 @@ cond:
   - GT
   - LE
   - AL
+size:
+  - ".8"
+  - ".16"
+  - ".32"
+  - ".64"
+datatype:
+  - ".S8"
+  - ".U8"
+  - ".I8"
+  - ".P8"
+  - ".S16"
+  - ".U16"
+  - ".I16"
+  - ".S32"
+  - ".U32"
+  - ".I32"
+  - ".S64"
+  - ".U64"
+  - ".I64"  
+  - ".F32"
+  - ".F16"
 a_mode4L:
   - IA
   - IB
@@ -329,6 +483,21 @@ a_mode4S:
   - FA
   - ED
   - FD
+a_mode_neon:
+  - IA
+  - DB
+  - EA
+  - FD
+F1632:
+  - ".F16"
+  - ".F32"
+type_neon:
+  - ".S32.F32"
+  - ".U32.F32"
+  - ".F32.S32"
+  - ".F32.U32"
+  - ".F32.F16"
+  - ".F16.F32"
 prefix:
   - S
   - Q
@@ -336,9 +505,27 @@ prefix:
   - U
   - UQ
   - UH
+ET:
+  - E
+  - T
+LW:
+  - L
+  - W
+A:
+  A
 S:
   S
 X:
   X
 R:
   R
+N:
+  N
+Q:
+  Q
+U:
+  U
+L:
+  L
+P:
+  P

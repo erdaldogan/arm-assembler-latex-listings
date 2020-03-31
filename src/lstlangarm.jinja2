@@ -1,7 +1,8 @@
 \ProvidesFile{lstlangarm.sty}
-    [2013/10/20 1.0 listings language file for ARM]
+    [2018/08/16 2.0 listings language file for ARM and NEON]
 %%
 %% ARM definition (c) 2013 Jacques Supcik
+%% NEON definitions (c) 2018 Michael Duell
 %%
 \lstdefinelanguage[ARM]{Assembler}%
 {{ keywords }}
@@ -13,5 +14,6 @@
     morecomment=[s]{/*}{*/},%
     morecomment=[l]@,%
     morecomment=[l]//,%
+    morecomment=[l];,%
    }[keywords,comments,strings]
 \endinput
